@@ -1,0 +1,532 @@
+{
+  "address": "0x3cc6B4D4ef124B3C767aEE625Dc7F94f7BE669f9",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "_owners",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "payable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "MultisigWallet__NotAnOwner",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MultisigWallet__TransactionAlreadyExecuted",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MultisigWallet__TransactionDoesNotExist",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MultisigWallet__TransactionExecutionFailed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MultisigWallet__TransactionNeedsApproval",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MultisigWallet__UserAlreadyConfirmedTransaction",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "MultisigWallet__UserAlreadyFound",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "txIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "ConfirmTx",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "txIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "ExecuteTx",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "owner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "txIndex",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "reason",
+          "type": "string"
+        }
+      ],
+      "name": "SubmitTx",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_txIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "confirmTransaction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_txIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "executeTransaction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getNumberOfConfimationsRequired",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getOwners",
+      "outputs": [
+        {
+          "internalType": "address[]",
+          "name": "",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_txIndex",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTransaction",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "txIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "reason",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "executed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "confirmations",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct MultisigWallet.Transaction",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getTransactions",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "txIndex",
+              "type": "uint256"
+            },
+            {
+              "internalType": "address",
+              "name": "to",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "reason",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "executed",
+              "type": "bool"
+            },
+            {
+              "internalType": "uint256",
+              "name": "confirmations",
+              "type": "uint256"
+            }
+          ],
+          "internalType": "struct MultisigWallet.Transaction[]",
+          "name": "",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "receiver",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_reason",
+          "type": "string"
+        }
+      ],
+      "name": "submitTransaction",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x28f1acb3af4f3787c74eb408b353f66b58efe90484f8539b73405d3c128073bf",
+  "receipt": {
+    "to": null,
+    "from": "0x5CBDf5f9E468dF3888e04155668CcAfC6F6C4dcf",
+    "contractAddress": "0x3cc6B4D4ef124B3C767aEE625Dc7F94f7BE669f9",
+    "transactionIndex": 0,
+    "gasUsed": "1562759",
+    "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0x164d634679e0f0cbe0a55635ee475c8d8090c9f2877f6a94fe1be127275315ec",
+    "transactionHash": "0x28f1acb3af4f3787c74eb408b353f66b58efe90484f8539b73405d3c128073bf",
+    "logs": [],
+    "blockNumber": 17517367,
+    "cumulativeGasUsed": "1562759",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    [
+      "0x5CBDf5f9E468dF3888e04155668CcAfC6F6C4dcf",
+      "0xD2c2591162162Fc57a40bc8a3C9cff0E6dFc9824"
+    ]
+  ],
+  "numDeployments": 1,
+  "solcInputHash": "d6bd5f5644307aead7b3d97a6f3fff4e",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.18+commit.87f61d96\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"_owners\",\"type\":\"address[]\"}],\"stateMutability\":\"payable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"MultisigWallet__NotAnOwner\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"MultisigWallet__TransactionAlreadyExecuted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"MultisigWallet__TransactionDoesNotExist\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"MultisigWallet__TransactionExecutionFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"MultisigWallet__TransactionNeedsApproval\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"MultisigWallet__UserAlreadyConfirmedTransaction\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"MultisigWallet__UserAlreadyFound\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"txIndex\",\"type\":\"uint256\"}],\"name\":\"ConfirmTx\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"txIndex\",\"type\":\"uint256\"}],\"name\":\"ExecuteTx\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"owner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"uint256\",\"name\":\"txIndex\",\"type\":\"uint256\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"reason\",\"type\":\"string\"}],\"name\":\"SubmitTx\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_txIndex\",\"type\":\"uint256\"}],\"name\":\"confirmTransaction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_txIndex\",\"type\":\"uint256\"}],\"name\":\"executeTransaction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getBalance\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getNumberOfConfimationsRequired\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getOwners\",\"outputs\":[{\"internalType\":\"address[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_txIndex\",\"type\":\"uint256\"}],\"name\":\"getTransaction\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"txIndex\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"reason\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"executed\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"confirmations\",\"type\":\"uint256\"}],\"internalType\":\"struct MultisigWallet.Transaction\",\"name\":\"\",\"type\":\"tuple\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getTransactions\",\"outputs\":[{\"components\":[{\"internalType\":\"uint256\",\"name\":\"txIndex\",\"type\":\"uint256\"},{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"reason\",\"type\":\"string\"},{\"internalType\":\"bool\",\"name\":\"executed\",\"type\":\"bool\"},{\"internalType\":\"uint256\",\"name\":\"confirmations\",\"type\":\"uint256\"}],\"internalType\":\"struct MultisigWallet.Transaction[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_amount\",\"type\":\"uint256\"},{\"internalType\":\"string\",\"name\":\"_reason\",\"type\":\"string\"}],\"name\":\"submitTransaction\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/MultisigWallet.sol\":\"MultisigWallet\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"contracts/MultisigWallet.sol\":{\"content\":\"// SPDX-License-Identifier: UNLICENSED\\npragma solidity ^0.8.9;\\n\\nerror MultisigWallet__UserAlreadyFound();\\nerror MultisigWallet__NotAnOwner();\\nerror MultisigWallet__TransactionDoesNotExist();\\nerror MultisigWallet__TransactionAlreadyExecuted();\\nerror MultisigWallet__UserAlreadyConfirmedTransaction();\\nerror MultisigWallet__TransactionNeedsApproval();\\nerror MultisigWallet__TransactionExecutionFailed();\\n\\ncontract MultisigWallet {\\n    // get all owners / addresses in the wallet\\n    address[] private s_owners;\\n\\n    uint256 private s_balance;\\n\\n    // check if an address is an owner of the wallet.\\n    mapping(address => bool) private isOwner;\\n\\n    // pecifies the number of confirmations required for a transaction to be executed.\\n    uint256 private s_numOfConfirmationsRequired;\\n\\n    // events\\n    event SubmitTx(\\n        address indexed owner,\\n        uint256 indexed txIndex,\\n        address indexed to,\\n        uint256 amount,\\n        string reason\\n    );\\n\\n    event ConfirmTx(address indexed owner, uint indexed txIndex);\\n\\n    event ExecuteTx(address indexed owner, uint indexed txIndex);\\n\\n    struct Transaction {\\n        uint256 txIndex;\\n        address to;\\n        uint256 amount;\\n        string reason;\\n        bool executed;\\n        uint256 confirmations;\\n    }\\n\\n    Transaction[] private s_transactions;\\n\\n    mapping(uint256 => Transaction) private s_transaction;\\n\\n    mapping(uint256 => bool) private txExits;\\n\\n    // This mapping keeps track of which user has confirmed a tx using the tx index\\n    mapping(uint256 => mapping(address => bool)) s_userHasConfimed;\\n\\n    constructor(address[] memory _owners) payable {\\n        s_numOfConfirmationsRequired = _owners.length;\\n\\n        // Loop through the entered array and add all the addresses to the s_owners group\\n        for (uint i = 0; i < _owners.length; i++) {\\n            // Extract out the looped address\\n            address user = _owners[i];\\n\\n            if (isOwner[user] == true) {\\n                revert MultisigWallet__UserAlreadyFound();\\n            }\\n\\n            // Add it to the isOwner mapping to makesure it is part of the owners of the wallet\\n            isOwner[user] = true;\\n            s_owners.push(user);\\n        }\\n\\n        s_balance = msg.value;\\n    }\\n\\n    // Main functions\\n    function submitTransaction(\\n        address receiver,\\n        uint256 _amount,\\n        string memory _reason\\n    ) public {\\n        if (isOwner[msg.sender] != true) {\\n            revert MultisigWallet__NotAnOwner();\\n        }\\n\\n        // Get the tx length\\n        uint256 txNum = s_transactions.length;\\n\\n        s_transactions.push(\\n            Transaction({\\n                txIndex: txNum,\\n                to: receiver,\\n                amount: _amount,\\n                reason: _reason,\\n                executed: false,\\n                confirmations: 0\\n            })\\n        );\\n\\n        txExits[txNum] = true;\\n\\n        emit SubmitTx(msg.sender, txNum, receiver, _amount, _reason);\\n    }\\n\\n    // confirmTransaction allows an owner to confirm a submitted transaction\\n    function confirmTransaction(uint256 _txIndex) public {\\n        // Verify that the user trying to confirm the transaction is a verified owner\\n        if (isOwner[msg.sender] != true) {\\n            revert MultisigWallet__NotAnOwner();\\n        }\\n\\n        // Verify that the transaction exists\\n        if (txExits[_txIndex] != true) {\\n            revert MultisigWallet__TransactionDoesNotExist();\\n        }\\n\\n        // Verify that the transaction is not yet executed\\n        if (s_transactions[_txIndex].executed == true) {\\n            revert MultisigWallet__TransactionAlreadyExecuted();\\n        }\\n\\n        // Verify that the user has not already confimed the transaction\\n        if (s_userHasConfimed[_txIndex][msg.sender] == true) {\\n            revert MultisigWallet__UserAlreadyConfirmedTransaction();\\n        }\\n\\n        // Extract out the wanted transaction\\n        Transaction storage transaction = s_transactions[_txIndex];\\n\\n        // Update the number of confirmations\\n        transaction.confirmations += 1;\\n\\n        // Update user confirmation status\\n        s_userHasConfimed[_txIndex][msg.sender] = true;\\n\\n        // Emit the confirmation event\\n        emit ConfirmTx(msg.sender, _txIndex);\\n    }\\n\\n    // used to execute a transaction once it has been confirmed by the required number of owners\\n    function executeTransaction(uint256 _txIndex) public {\\n        // Verify that the user trying to confirm the transaction is a verified owner\\n        if (isOwner[msg.sender] != true) {\\n            revert MultisigWallet__NotAnOwner();\\n        }\\n\\n        // Verify that the transaction exists\\n        if (txExits[_txIndex] != true) {\\n            revert MultisigWallet__TransactionDoesNotExist();\\n        }\\n\\n        // Verify that the transaction is not yet executed\\n        if (s_transactions[_txIndex].executed == true) {\\n            revert MultisigWallet__TransactionAlreadyExecuted();\\n        }\\n\\n        Transaction storage transaction = s_transactions[_txIndex];\\n\\n        // Verify that the wanted transaction to be executed has the required number of confirmations to continue\\n        if (transaction.confirmations < s_numOfConfirmationsRequired) {\\n            revert MultisigWallet__TransactionNeedsApproval();\\n        }\\n\\n        // set the transaction to be executed\\n        transaction.executed = true;\\n\\n        (bool success, ) = transaction.to.call{value: transaction.amount}('');\\n\\n        if (!success) {\\n            revert MultisigWallet__TransactionExecutionFailed();\\n        }\\n\\n        s_balance -= transaction.amount;\\n\\n        emit ExecuteTx(msg.sender, _txIndex);\\n    }\\n\\n    // Pure / View\\n    function getOwners() public view returns (address[] memory) {\\n        return s_owners;\\n    }\\n\\n    function getNumberOfConfimationsRequired() public view returns (uint256) {\\n        return s_numOfConfirmationsRequired;\\n    }\\n\\n    function getTransactions() public view returns (Transaction[] memory) {\\n        return s_transactions;\\n    }\\n\\n    function getTransaction(\\n        uint256 _txIndex\\n    ) public view returns (Transaction memory) {\\n        return s_transaction[_txIndex];\\n    }\\n\\n    function getBalance() public view returns (uint256) {\\n        return s_balance;\\n    }\\n}\\n\",\"keccak256\":\"0xc468d7f29a9be1d52dbc170ce5d65f280aaede73ab02fd3f48b1e14717408206\",\"license\":\"UNLICENSED\"}},\"version\":1}",
+  "bytecode": "0x608060405260405162001d3538038062001d358339818101604052810190620000299190620003ba565b805160038190555060005b8151811015620001bd5760008282815181106200005657620000556200040b565b5b6020026020010151905060011515600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16151503620000eb576040517f407aab3600000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6001600260008373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff0219169083151502179055506000819080600181540180825580915050600190039060005260206000200160009091909190916101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff160217905550508080620001b49062000473565b91505062000034565b503460018190555050620004c0565b6000604051905090565b600080fd5b600080fd5b600080fd5b6000601f19601f8301169050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6200023082620001e5565b810181811067ffffffffffffffff82111715620002525762000251620001f6565b5b80604052505050565b600062000267620001cc565b905062000275828262000225565b919050565b600067ffffffffffffffff821115620002985762000297620001f6565b5b602082029050602081019050919050565b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000620002db82620002ae565b9050919050565b620002ed81620002ce565b8114620002f957600080fd5b50565b6000815190506200030d81620002e2565b92915050565b60006200032a62000324846200027a565b6200025b565b9050808382526020820190506020840283018581111562000350576200034f620002a9565b5b835b818110156200037d5780620003688882620002fc565b84526020840193505060208101905062000352565b5050509392505050565b600082601f8301126200039f576200039e620001e0565b5b8151620003b184826020860162000313565b91505092915050565b600060208284031215620003d357620003d2620001d6565b5b600082015167ffffffffffffffff811115620003f457620003f3620001db565b5b620004028482850162000387565b91505092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b6000819050919050565b6000620004808262000469565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8203620004b557620004b46200043a565b5b600182019050919050565b61186580620004d06000396000f3fe608060405234801561001057600080fd5b50600436106100885760003560e01c806383920e901161005b57806383920e9014610115578063a0e67e2b14610133578063c01a8c8414610151578063ee22610b1461016d57610088565b806303d79d281461008d57806312065fe0146100a957806333ea3dc8146100c75780634a92751b146100f7575b600080fd5b6100a760048036038101906100a29190610f64565b610189565b005b6100b16103c6565b6040516100be9190610fe2565b60405180910390f35b6100e160048036038101906100dc9190610ffd565b6103d0565b6040516100ee919061116b565b60405180910390f35b6100ff61051e565b60405161010c9190610fe2565b60405180910390f35b61011d610528565b60405161012a91906112d8565b60405180910390f35b61013b6106a8565b60405161014891906113a9565b60405180910390f35b61016b60048036038101906101669190610ffd565b610736565b005b61018760048036038101906101829190610ffd565b610a1c565b005b60011515600260003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16151514610213576040517ff94cfea400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6000600480549050905060046040518060c001604052808381526020018673ffffffffffffffffffffffffffffffffffffffff168152602001858152602001848152602001600015158152602001600081525090806001815401808255809150506001900390600052602060002090600602016000909190919091506000820151816000015560208201518160010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506040820151816002015560608201518160030190816102ff91906115d7565b5060808201518160040160006101000a81548160ff02191690831515021790555060a08201518160050155505060016006600083815260200190815260200160002060006101000a81548160ff0219169083151502179055508373ffffffffffffffffffffffffffffffffffffffff16813373ffffffffffffffffffffffffffffffffffffffff167faa03383b61f944782a5ddc658d4008aae58bae9554be06f3d748c81d3fc5ba1386866040516103b89291906116f3565b60405180910390a450505050565b6000600154905090565b6103d8610d28565b600560008381526020019081526020016000206040518060c0016040529081600082015481526020016001820160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200160028201548152602001600382018054610470906113fa565b80601f016020809104026020016040519081016040528092919081815260200182805461049c906113fa565b80156104e95780601f106104be576101008083540402835291602001916104e9565b820191906000526020600020905b8154815290600101906020018083116104cc57829003601f168201915b505050505081526020016004820160009054906101000a900460ff161515151581526020016005820154815250509050919050565b6000600354905090565b60606004805480602002602001604051908101604052809291908181526020016000905b8282101561069f57838290600052602060002090600602016040518060c0016040529081600082015481526020016001820160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001600282015481526020016003820180546105e9906113fa565b80601f0160208091040260200160405190810160405280929190818152602001828054610615906113fa565b80156106625780601f1061063757610100808354040283529160200191610662565b820191906000526020600020905b81548152906001019060200180831161064557829003601f168201915b505050505081526020016004820160009054906101000a900460ff161515151581526020016005820154815250508152602001906001019061054c565b50505050905090565b6060600080548060200260200160405190810160405280929190818152602001828054801561072c57602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190600101908083116106e2575b5050505050905090565b60011515600260003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff161515146107c0576040517ff94cfea400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600115156006600083815260200190815260200160002060009054906101000a900460ff1615151461081e576040517fab3faa6100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600115156004828154811061083657610835611723565b5b906000526020600020906006020160040160009054906101000a900460ff1615150361088e576040517ffcedd73b00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600115156007600083815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16151503610929576040517f1b7a0f7800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60006004828154811061093f5761093e611723565b5b9060005260206000209060060201905060018160050160008282546109649190611781565b9250508190555060016007600084815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550813373ffffffffffffffffffffffffffffffffffffffff167f89aa8adaff4e4175e98802d956afe39a244131e03ad9e605501ddedda71ded6c60405160405180910390a35050565b60011515600260003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16151514610aa6576040517ff94cfea400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600115156006600083815260200190815260200160002060009054906101000a900460ff16151514610b04576040517fab3faa6100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6001151560048281548110610b1c57610b1b611723565b5b906000526020600020906006020160040160009054906101000a900460ff16151503610b74576040517ffcedd73b00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600060048281548110610b8a57610b89611723565b5b9060005260206000209060060201905060035481600501541015610bda576040517f6661dcb100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60018160040160006101000a81548160ff02191690831515021790555060008160010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168260020154604051610c45906117e6565b60006040518083038185875af1925050503d8060008114610c82576040519150601f19603f3d011682016040523d82523d6000602084013e610c87565b606091505b5050905080610cc2576040517f5f57493300000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b816002015460016000828254610cd891906117fb565b92505081905550823373ffffffffffffffffffffffffffffffffffffffff167f39bf31f4588071daaa9c395053bda7fb7fab807ac7e3d18f77dc5a6322423eba60405160405180910390a3505050565b6040518060c0016040528060008152602001600073ffffffffffffffffffffffffffffffffffffffff1681526020016000815260200160608152602001600015158152602001600081525090565b6000604051905090565b600080fd5b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610db582610d8a565b9050919050565b610dc581610daa565b8114610dd057600080fd5b50565b600081359050610de281610dbc565b92915050565b6000819050919050565b610dfb81610de8565b8114610e0657600080fd5b50565b600081359050610e1881610df2565b92915050565b600080fd5b600080fd5b6000601f19601f8301169050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b610e7182610e28565b810181811067ffffffffffffffff82111715610e9057610e8f610e39565b5b80604052505050565b6000610ea3610d76565b9050610eaf8282610e68565b919050565b600067ffffffffffffffff821115610ecf57610ece610e39565b5b610ed882610e28565b9050602081019050919050565b82818337600083830152505050565b6000610f07610f0284610eb4565b610e99565b905082815260208101848484011115610f2357610f22610e23565b5b610f2e848285610ee5565b509392505050565b600082601f830112610f4b57610f4a610e1e565b5b8135610f5b848260208601610ef4565b91505092915050565b600080600060608486031215610f7d57610f7c610d80565b5b6000610f8b86828701610dd3565b9350506020610f9c86828701610e09565b925050604084013567ffffffffffffffff811115610fbd57610fbc610d85565b5b610fc986828701610f36565b9150509250925092565b610fdc81610de8565b82525050565b6000602082019050610ff76000830184610fd3565b92915050565b60006020828403121561101357611012610d80565b5b600061102184828501610e09565b91505092915050565b61103381610de8565b82525050565b61104281610daa565b82525050565b600081519050919050565b600082825260208201905092915050565b60005b83811015611082578082015181840152602081019050611067565b60008484015250505050565b600061109982611048565b6110a38185611053565b93506110b3818560208601611064565b6110bc81610e28565b840191505092915050565b60008115159050919050565b6110dc816110c7565b82525050565b600060c0830160008301516110fa600086018261102a565b50602083015161110d6020860182611039565b506040830151611120604086018261102a565b5060608301518482036060860152611138828261108e565b915050608083015161114d60808601826110d3565b5060a083015161116060a086018261102a565b508091505092915050565b6000602082019050818103600083015261118581846110e2565b905092915050565b600081519050919050565b600082825260208201905092915050565b6000819050602082019050919050565b600060c0830160008301516111d1600086018261102a565b5060208301516111e46020860182611039565b5060408301516111f7604086018261102a565b506060830151848203606086015261120f828261108e565b915050608083015161122460808601826110d3565b5060a083015161123760a086018261102a565b508091505092915050565b600061124e83836111b9565b905092915050565b6000602082019050919050565b600061126e8261118d565b6112788185611198565b93508360208202850161128a856111a9565b8060005b858110156112c657848403895281516112a78582611242565b94506112b283611256565b925060208a0199505060018101905061128e565b50829750879550505050505092915050565b600060208201905081810360008301526112f28184611263565b905092915050565b600081519050919050565b600082825260208201905092915050565b6000819050602082019050919050565b60006113328383611039565b60208301905092915050565b6000602082019050919050565b6000611356826112fa565b6113608185611305565b935061136b83611316565b8060005b8381101561139c5781516113838882611326565b975061138e8361133e565b92505060018101905061136f565b5085935050505092915050565b600060208201905081810360008301526113c3818461134b565b905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602260045260246000fd5b6000600282049050600182168061141257607f821691505b602082108103611425576114246113cb565b5b50919050565b60008190508160005260206000209050919050565b60006020601f8301049050919050565b600082821b905092915050565b60006008830261148d7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82611450565b6114978683611450565b95508019841693508086168417925050509392505050565b6000819050919050565b60006114d46114cf6114ca84610de8565b6114af565b610de8565b9050919050565b6000819050919050565b6114ee836114b9565b6115026114fa826114db565b84845461145d565b825550505050565b600090565b61151761150a565b6115228184846114e5565b505050565b5b818110156115465761153b60008261150f565b600181019050611528565b5050565b601f82111561158b5761155c8161142b565b61156584611440565b81016020851015611574578190505b61158861158085611440565b830182611527565b50505b505050565b600082821c905092915050565b60006115ae60001984600802611590565b1980831691505092915050565b60006115c7838361159d565b9150826002028217905092915050565b6115e082611048565b67ffffffffffffffff8111156115f9576115f8610e39565b5b61160382546113fa565b61160e82828561154a565b600060209050601f831160018114611641576000841561162f578287015190505b61163985826115bb565b8655506116a1565b601f19841661164f8661142b565b60005b8281101561167757848901518255600182019150602085019450602081019050611652565b868310156116945784890151611690601f89168261159d565b8355505b6001600288020188555050505b505050505050565b600082825260208201905092915050565b60006116c582611048565b6116cf81856116a9565b93506116df818560208601611064565b6116e881610e28565b840191505092915050565b60006040820190506117086000830185610fd3565b818103602083015261171a81846116ba565b90509392505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b600061178c82610de8565b915061179783610de8565b92508282019050808211156117af576117ae611752565b5b92915050565b600081905092915050565b50565b60006117d06000836117b5565b91506117db826117c0565b600082019050919050565b60006117f1826117c3565b9150819050919050565b600061180682610de8565b915061181183610de8565b925082820390508181111561182957611828611752565b5b9291505056fea2646970667358221220c7f71a237d595202eed86d372573f0d259e8b557a78d3f9333e04c9b17fc79cc64736f6c63430008120033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100885760003560e01c806383920e901161005b57806383920e9014610115578063a0e67e2b14610133578063c01a8c8414610151578063ee22610b1461016d57610088565b806303d79d281461008d57806312065fe0146100a957806333ea3dc8146100c75780634a92751b146100f7575b600080fd5b6100a760048036038101906100a29190610f64565b610189565b005b6100b16103c6565b6040516100be9190610fe2565b60405180910390f35b6100e160048036038101906100dc9190610ffd565b6103d0565b6040516100ee919061116b565b60405180910390f35b6100ff61051e565b60405161010c9190610fe2565b60405180910390f35b61011d610528565b60405161012a91906112d8565b60405180910390f35b61013b6106a8565b60405161014891906113a9565b60405180910390f35b61016b60048036038101906101669190610ffd565b610736565b005b61018760048036038101906101829190610ffd565b610a1c565b005b60011515600260003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16151514610213576040517ff94cfea400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6000600480549050905060046040518060c001604052808381526020018673ffffffffffffffffffffffffffffffffffffffff168152602001858152602001848152602001600015158152602001600081525090806001815401808255809150506001900390600052602060002090600602016000909190919091506000820151816000015560208201518160010160006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055506040820151816002015560608201518160030190816102ff91906115d7565b5060808201518160040160006101000a81548160ff02191690831515021790555060a08201518160050155505060016006600083815260200190815260200160002060006101000a81548160ff0219169083151502179055508373ffffffffffffffffffffffffffffffffffffffff16813373ffffffffffffffffffffffffffffffffffffffff167faa03383b61f944782a5ddc658d4008aae58bae9554be06f3d748c81d3fc5ba1386866040516103b89291906116f3565b60405180910390a450505050565b6000600154905090565b6103d8610d28565b600560008381526020019081526020016000206040518060c0016040529081600082015481526020016001820160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200160028201548152602001600382018054610470906113fa565b80601f016020809104026020016040519081016040528092919081815260200182805461049c906113fa565b80156104e95780601f106104be576101008083540402835291602001916104e9565b820191906000526020600020905b8154815290600101906020018083116104cc57829003601f168201915b505050505081526020016004820160009054906101000a900460ff161515151581526020016005820154815250509050919050565b6000600354905090565b60606004805480602002602001604051908101604052809291908181526020016000905b8282101561069f57838290600052602060002090600602016040518060c0016040529081600082015481526020016001820160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168152602001600282015481526020016003820180546105e9906113fa565b80601f0160208091040260200160405190810160405280929190818152602001828054610615906113fa565b80156106625780601f1061063757610100808354040283529160200191610662565b820191906000526020600020905b81548152906001019060200180831161064557829003601f168201915b505050505081526020016004820160009054906101000a900460ff161515151581526020016005820154815250508152602001906001019061054c565b50505050905090565b6060600080548060200260200160405190810160405280929190818152602001828054801561072c57602002820191906000526020600020905b8160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190600101908083116106e2575b5050505050905090565b60011515600260003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff161515146107c0576040517ff94cfea400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600115156006600083815260200190815260200160002060009054906101000a900460ff1615151461081e576040517fab3faa6100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600115156004828154811061083657610835611723565b5b906000526020600020906006020160040160009054906101000a900460ff1615150361088e576040517ffcedd73b00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600115156007600083815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16151503610929576040517f1b7a0f7800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60006004828154811061093f5761093e611723565b5b9060005260206000209060060201905060018160050160008282546109649190611781565b9250508190555060016007600084815260200190815260200160002060003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060006101000a81548160ff021916908315150217905550813373ffffffffffffffffffffffffffffffffffffffff167f89aa8adaff4e4175e98802d956afe39a244131e03ad9e605501ddedda71ded6c60405160405180910390a35050565b60011515600260003373ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200190815260200160002060009054906101000a900460ff16151514610aa6576040517ff94cfea400000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600115156006600083815260200190815260200160002060009054906101000a900460ff16151514610b04576040517fab3faa6100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6001151560048281548110610b1c57610b1b611723565b5b906000526020600020906006020160040160009054906101000a900460ff16151503610b74576040517ffcedd73b00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600060048281548110610b8a57610b89611723565b5b9060005260206000209060060201905060035481600501541015610bda576040517f6661dcb100000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60018160040160006101000a81548160ff02191690831515021790555060008160010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff168260020154604051610c45906117e6565b60006040518083038185875af1925050503d8060008114610c82576040519150601f19603f3d011682016040523d82523d6000602084013e610c87565b606091505b5050905080610cc2576040517f5f57493300000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b816002015460016000828254610cd891906117fb565b92505081905550823373ffffffffffffffffffffffffffffffffffffffff167f39bf31f4588071daaa9c395053bda7fb7fab807ac7e3d18f77dc5a6322423eba60405160405180910390a3505050565b6040518060c0016040528060008152602001600073ffffffffffffffffffffffffffffffffffffffff1681526020016000815260200160608152602001600015158152602001600081525090565b6000604051905090565b600080fd5b600080fd5b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000610db582610d8a565b9050919050565b610dc581610daa565b8114610dd057600080fd5b50565b600081359050610de281610dbc565b92915050565b6000819050919050565b610dfb81610de8565b8114610e0657600080fd5b50565b600081359050610e1881610df2565b92915050565b600080fd5b600080fd5b6000601f19601f8301169050919050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b610e7182610e28565b810181811067ffffffffffffffff82111715610e9057610e8f610e39565b5b80604052505050565b6000610ea3610d76565b9050610eaf8282610e68565b919050565b600067ffffffffffffffff821115610ecf57610ece610e39565b5b610ed882610e28565b9050602081019050919050565b82818337600083830152505050565b6000610f07610f0284610eb4565b610e99565b905082815260208101848484011115610f2357610f22610e23565b5b610f2e848285610ee5565b509392505050565b600082601f830112610f4b57610f4a610e1e565b5b8135610f5b848260208601610ef4565b91505092915050565b600080600060608486031215610f7d57610f7c610d80565b5b6000610f8b86828701610dd3565b9350506020610f9c86828701610e09565b925050604084013567ffffffffffffffff811115610fbd57610fbc610d85565b5b610fc986828701610f36565b9150509250925092565b610fdc81610de8565b82525050565b6000602082019050610ff76000830184610fd3565b92915050565b60006020828403121561101357611012610d80565b5b600061102184828501610e09565b91505092915050565b61103381610de8565b82525050565b61104281610daa565b82525050565b600081519050919050565b600082825260208201905092915050565b60005b83811015611082578082015181840152602081019050611067565b60008484015250505050565b600061109982611048565b6110a38185611053565b93506110b3818560208601611064565b6110bc81610e28565b840191505092915050565b60008115159050919050565b6110dc816110c7565b82525050565b600060c0830160008301516110fa600086018261102a565b50602083015161110d6020860182611039565b506040830151611120604086018261102a565b5060608301518482036060860152611138828261108e565b915050608083015161114d60808601826110d3565b5060a083015161116060a086018261102a565b508091505092915050565b6000602082019050818103600083015261118581846110e2565b905092915050565b600081519050919050565b600082825260208201905092915050565b6000819050602082019050919050565b600060c0830160008301516111d1600086018261102a565b5060208301516111e46020860182611039565b5060408301516111f7604086018261102a565b506060830151848203606086015261120f828261108e565b915050608083015161122460808601826110d3565b5060a083015161123760a086018261102a565b508091505092915050565b600061124e83836111b9565b905092915050565b6000602082019050919050565b600061126e8261118d565b6112788185611198565b93508360208202850161128a856111a9565b8060005b858110156112c657848403895281516112a78582611242565b94506112b283611256565b925060208a0199505060018101905061128e565b50829750879550505050505092915050565b600060208201905081810360008301526112f28184611263565b905092915050565b600081519050919050565b600082825260208201905092915050565b6000819050602082019050919050565b60006113328383611039565b60208301905092915050565b6000602082019050919050565b6000611356826112fa565b6113608185611305565b935061136b83611316565b8060005b8381101561139c5781516113838882611326565b975061138e8361133e565b92505060018101905061136f565b5085935050505092915050565b600060208201905081810360008301526113c3818461134b565b905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052602260045260246000fd5b6000600282049050600182168061141257607f821691505b602082108103611425576114246113cb565b5b50919050565b60008190508160005260206000209050919050565b60006020601f8301049050919050565b600082821b905092915050565b60006008830261148d7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82611450565b6114978683611450565b95508019841693508086168417925050509392505050565b6000819050919050565b60006114d46114cf6114ca84610de8565b6114af565b610de8565b9050919050565b6000819050919050565b6114ee836114b9565b6115026114fa826114db565b84845461145d565b825550505050565b600090565b61151761150a565b6115228184846114e5565b505050565b5b818110156115465761153b60008261150f565b600181019050611528565b5050565b601f82111561158b5761155c8161142b565b61156584611440565b81016020851015611574578190505b61158861158085611440565b830182611527565b50505b505050565b600082821c905092915050565b60006115ae60001984600802611590565b1980831691505092915050565b60006115c7838361159d565b9150826002028217905092915050565b6115e082611048565b67ffffffffffffffff8111156115f9576115f8610e39565b5b61160382546113fa565b61160e82828561154a565b600060209050601f831160018114611641576000841561162f578287015190505b61163985826115bb565b8655506116a1565b601f19841661164f8661142b565b60005b8281101561167757848901518255600182019150602085019450602081019050611652565b868310156116945784890151611690601f89168261159d565b8355505b6001600288020188555050505b505050505050565b600082825260208201905092915050565b60006116c582611048565b6116cf81856116a9565b93506116df818560208601611064565b6116e881610e28565b840191505092915050565b60006040820190506117086000830185610fd3565b818103602083015261171a81846116ba565b90509392505050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b600061178c82610de8565b915061179783610de8565b92508282019050808211156117af576117ae611752565b5b92915050565b600081905092915050565b50565b60006117d06000836117b5565b91506117db826117c0565b600082019050919050565b60006117f1826117c3565b9150819050919050565b600061180682610de8565b915061181183610de8565b925082820390508181111561182957611828611752565b5b9291505056fea2646970667358221220c7f71a237d595202eed86d372573f0d259e8b557a78d3f9333e04c9b17fc79cc64736f6c63430008120033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 18,
+        "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+        "label": "s_owners",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_array(t_address)dyn_storage"
+      },
+      {
+        "astId": 20,
+        "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+        "label": "s_balance",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 24,
+        "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+        "label": "isOwner",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_address,t_bool)"
+      },
+      {
+        "astId": 26,
+        "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+        "label": "s_numOfConfirmationsRequired",
+        "offset": 0,
+        "slot": "3",
+        "type": "t_uint256"
+      },
+      {
+        "astId": 67,
+        "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+        "label": "s_transactions",
+        "offset": 0,
+        "slot": "4",
+        "type": "t_array(t_struct(Transaction)63_storage)dyn_storage"
+      },
+      {
+        "astId": 72,
+        "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+        "label": "s_transaction",
+        "offset": 0,
+        "slot": "5",
+        "type": "t_mapping(t_uint256,t_struct(Transaction)63_storage)"
+      },
+      {
+        "astId": 76,
+        "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+        "label": "txExits",
+        "offset": 0,
+        "slot": "6",
+        "type": "t_mapping(t_uint256,t_bool)"
+      },
+      {
+        "astId": 82,
+        "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+        "label": "s_userHasConfimed",
+        "offset": 0,
+        "slot": "7",
+        "type": "t_mapping(t_uint256,t_mapping(t_address,t_bool))"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_array(t_address)dyn_storage": {
+        "base": "t_address",
+        "encoding": "dynamic_array",
+        "label": "address[]",
+        "numberOfBytes": "32"
+      },
+      "t_array(t_struct(Transaction)63_storage)dyn_storage": {
+        "base": "t_struct(Transaction)63_storage",
+        "encoding": "dynamic_array",
+        "label": "struct MultisigWallet.Transaction[]",
+        "numberOfBytes": "32"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_uint256,t_mapping(t_address,t_bool))": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => mapping(address => bool))",
+        "numberOfBytes": "32",
+        "value": "t_mapping(t_address,t_bool)"
+      },
+      "t_mapping(t_uint256,t_struct(Transaction)63_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct MultisigWallet.Transaction)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Transaction)63_storage"
+      },
+      "t_string_storage": {
+        "encoding": "bytes",
+        "label": "string",
+        "numberOfBytes": "32"
+      },
+      "t_struct(Transaction)63_storage": {
+        "encoding": "inplace",
+        "label": "struct MultisigWallet.Transaction",
+        "members": [
+          {
+            "astId": 52,
+            "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+            "label": "txIndex",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 54,
+            "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+            "label": "to",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_address"
+          },
+          {
+            "astId": 56,
+            "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+            "label": "amount",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_uint256"
+          },
+          {
+            "astId": 58,
+            "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+            "label": "reason",
+            "offset": 0,
+            "slot": "3",
+            "type": "t_string_storage"
+          },
+          {
+            "astId": 60,
+            "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+            "label": "executed",
+            "offset": 0,
+            "slot": "4",
+            "type": "t_bool"
+          },
+          {
+            "astId": 62,
+            "contract": "contracts/MultisigWallet.sol:MultisigWallet",
+            "label": "confirmations",
+            "offset": 0,
+            "slot": "5",
+            "type": "t_uint256"
+          }
+        ],
+        "numberOfBytes": "192"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

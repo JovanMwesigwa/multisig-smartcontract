@@ -1,4 +1,5 @@
 require('@nomicfoundation/hardhat-toolbox')
+require('hardhat-deploy')
 require('dotenv').config()
 
 const { ALFAJORES_API_KEY, ALFAJORES_URL, PRIVATE_KEY } = process.env

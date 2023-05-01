@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "contracts/MultisigWallet.sol": {
+      "content": "// SPDX-License-Identifier: UNLICENSED\npragma solidity ^0.8.9;\n\nerror MultisigWallet__UserAlreadyFound();\nerror MultisigWallet__NotAnOwner();\nerror MultisigWallet__TransactionDoesNotExist();\nerror MultisigWallet__TransactionAlreadyExecuted();\nerror MultisigWallet__UserAlreadyConfirmedTransaction();\nerror MultisigWallet__TransactionNeedsApproval();\nerror MultisigWallet__TransactionExecutionFailed();\n\ncontract MultisigWallet {\n    // get all owners / addresses in the wallet\n    address[] private s_owners;\n\n    uint256 private s_balance;\n\n    // check if an address is an owner of the wallet.\n    mapping(address => bool) private isOwner;\n\n    // pecifies the number of confirmations required for a transaction to be executed.\n    uint256 private s_numOfConfirmationsRequired;\n\n    // events\n    event SubmitTx(\n        address indexed owner,\n        uint256 indexed txIndex,\n        address indexed to,\n        uint256 amount,\n        string reason\n    );\n\n    event ConfirmTx(address indexed owner, uint indexed txIndex);\n\n    event ExecuteTx(address indexed owner, uint indexed txIndex);\n\n    struct Transaction {\n        uint256 txIndex;\n        address to;\n        uint256 amount;\n        string reason;\n        bool executed;\n        uint256 confirmations;\n    }\n\n    Transaction[] private s_transactions;\n\n    mapping(uint256 => Transaction) private s_transaction;\n\n    mapping(uint256 => bool) private txExits;\n\n    // This mapping keeps track of which user has confirmed a tx using the tx index\n    mapping(uint256 => mapping(address => bool)) s_userHasConfimed;\n\n    constructor(address[] memory _owners) payable {\n        s_numOfConfirmationsRequired = _owners.length;\n\n        // Loop through the entered array and add all the addresses to the s_owners group\n        for (uint i = 0; i < _owners.length; i++) {\n            // Extract out the looped address\n            address user = _owners[i];\n\n            if (isOwner[user] == true) {\n                revert MultisigWallet__UserAlreadyFound();\n            }\n\n            // Add it to the isOwner mapping to makesure it is part of the owners of the wallet\n            isOwner[user] = true;\n            s_owners.push(user);\n        }\n\n        s_balance = msg.value;\n    }\n\n    // Main functions\n    function submitTransaction(\n        address receiver,\n        uint256 _amount,\n        string memory _reason\n    ) public {\n        if (isOwner[msg.sender] != true) {\n            revert MultisigWallet__NotAnOwner();\n        }\n\n        // Get the tx length\n        uint256 txNum = s_transactions.length;\n\n        s_transactions.push(\n            Transaction({\n                txIndex: txNum,\n                to: receiver,\n                amount: _amount,\n                reason: _reason,\n                executed: false,\n                confirmations: 0\n            })\n        );\n\n        txExits[txNum] = true;\n\n        emit SubmitTx(msg.sender, txNum, receiver, _amount, _reason);\n    }\n\n    // confirmTransaction allows an owner to confirm a submitted transaction\n    function confirmTransaction(uint256 _txIndex) public {\n        // Verify that the user trying to confirm the transaction is a verified owner\n        if (isOwner[msg.sender] != true) {\n            revert MultisigWallet__NotAnOwner();\n        }\n\n        // Verify that the transaction exists\n        if (txExits[_txIndex] != true) {\n            revert MultisigWallet__TransactionDoesNotExist();\n        }\n\n        // Verify that the transaction is not yet executed\n        if (s_transactions[_txIndex].executed == true) {\n            revert MultisigWallet__TransactionAlreadyExecuted();\n        }\n\n        // Verify that the user has not already confimed the transaction\n        if (s_userHasConfimed[_txIndex][msg.sender] == true) {\n            revert MultisigWallet__UserAlreadyConfirmedTransaction();\n        }\n\n        // Extract out the wanted transaction\n        Transaction storage transaction = s_transactions[_txIndex];\n\n        // Update the number of confirmations\n        transaction.confirmations += 1;\n\n        // Update user confirmation status\n        s_userHasConfimed[_txIndex][msg.sender] = true;\n\n        // Emit the confirmation event\n        emit ConfirmTx(msg.sender, _txIndex);\n    }\n\n    // used to execute a transaction once it has been confirmed by the required number of owners\n    function executeTransaction(uint256 _txIndex) public {\n        // Verify that the user trying to confirm the transaction is a verified owner\n        if (isOwner[msg.sender] != true) {\n            revert MultisigWallet__NotAnOwner();\n        }\n\n        // Verify that the transaction exists\n        if (txExits[_txIndex] != true) {\n            revert MultisigWallet__TransactionDoesNotExist();\n        }\n\n        // Verify that the transaction is not yet executed\n        if (s_transactions[_txIndex].executed == true) {\n            revert MultisigWallet__TransactionAlreadyExecuted();\n        }\n\n        Transaction storage transaction = s_transactions[_txIndex];\n\n        // Verify that the wanted transaction to be executed has the required number of confirmations to continue\n        if (transaction.confirmations < s_numOfConfirmationsRequired) {\n            revert MultisigWallet__TransactionNeedsApproval();\n        }\n\n        // set the transaction to be executed\n        transaction.executed = true;\n\n        (bool success, ) = transaction.to.call{value: transaction.amount}('');\n\n        if (!success) {\n            revert MultisigWallet__TransactionExecutionFailed();\n        }\n\n        s_balance -= transaction.amount;\n\n        emit ExecuteTx(msg.sender, _txIndex);\n    }\n\n    // Pure / View\n    function getOwners() public view returns (address[] memory) {\n        return s_owners;\n    }\n\n    function getNumberOfConfimationsRequired() public view returns (uint256) {\n        return s_numOfConfirmationsRequired;\n    }\n\n    function getTransactions() public view returns (Transaction[] memory) {\n        return s_transactions;\n    }\n\n    function getTransaction(\n        uint256 _txIndex\n    ) public view returns (Transaction memory) {\n        return s_transaction[_txIndex];\n    }\n\n    function getBalance() public view returns (uint256) {\n        return s_balance;\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}
